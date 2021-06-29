@@ -1,6 +1,9 @@
 package com.demonorium;
 
 
+import com.demonorium.database.UrlRepository;
+import com.demonorium.database.UrlEntity;
+import com.demonorium.view.UrlPageView;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +21,14 @@ import java.util.Optional;
 @Controller
 public class MainController {
     @Autowired
-    Repo repo;
+    UrlRepository urlRepository;
 
 
     UrlValidator validator = new UrlValidator();
 
     @GetMapping("/")
     String mainScreen(Model model) {
-        model.addAttribute("urlContainer", new UrlContainer());
+        model.addAttribute("urlPageView", new UrlPageView());
         return "home";
     }
 
@@ -35,12 +38,12 @@ public class MainController {
         if (index > 0) {
             try {
                 Long id = Long.parseLong(target.substring(0, index), 16);
-                Optional<UrlInfo> info = repo.findById(id);
+                Optional<UrlEntity> info = urlRepository.findById(id);
                 if (info.isPresent()) {
-                    if (info.get().time.equals(target.substring(index+1)))
+                    if (info.get().getTime().equals(target.substring(index+1)))
                         return "redirect:" + info.get().getInput();
                 }
-            } catch (NumberFormatException formatException) {
+            } catch (NumberFormatException ignored) {
             }
         }
         return "error";
@@ -52,23 +55,23 @@ public class MainController {
     }
 
     @PostMapping("/")
-    String shorten(@ModelAttribute("urlContainer") UrlContainer urlContainer, HttpServletRequest request, Model model) {
-        List<UrlInfo> info = repo.getByInput(urlContainer.url);
+    String shorten(@ModelAttribute("urlPageView") UrlPageView urlPageView, HttpServletRequest request, Model model) {
+        List<UrlEntity> info = urlRepository.getByInput(urlPageView.getUrl());
         if (info.isEmpty()) {
-            if ((urlContainer.url.length() > 4095) || !validator.isValid(urlContainer.url)) {
-                urlContainer.setError(true);
-                urlContainer.setCorrect(false);
+            if ((urlPageView.getUrl().length() > 4095) || !validator.isValid(urlPageView.getUrl())) {
+                urlPageView.setBadUrl(true);
+                urlPageView.setCorrect(false);
                 return "home";
             }
 
-            UrlInfo urlInfo = new UrlInfo(urlContainer.url, Long.toHexString(new Date().getTime()));
-            repo.save(urlInfo);
-            urlContainer.setShorten(request.getRequestURL().toString() + "shr/" + Long.toHexString(urlInfo.getId()) + '_' + urlInfo.getTime());
+            UrlEntity urlEntity = new UrlEntity(urlPageView.getUrl(), Long.toHexString(new Date().getTime()));
+            urlRepository.save(urlEntity);
+            urlPageView.setShorten(request.getRequestURL().toString() + "shr/" + Long.toHexString(urlEntity.getId()) + '_' + urlEntity.getTime());
         } else {
-            urlContainer.setShorten(request.getRequestURL().toString() + "shr/" + Long.toHexString(info.get(0).getId()) + '_' + info.get(0).getTime());
+            urlPageView.setShorten(request.getRequestURL().toString() + "shr/" + Long.toHexString(info.get(0).getId()) + '_' + info.get(0).getTime());
         }
-        urlContainer.setError(false);
-        urlContainer.setCorrect(true);
+        urlPageView.setBadUrl(false);
+        urlPageView.setCorrect(true);
         return "home";
     }
 

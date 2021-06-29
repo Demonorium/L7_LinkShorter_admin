@@ -1,20 +1,20 @@
-package com.demonorium;
+package com.demonorium.database;
 
 import javax.persistence.*;
 
 @Entity
-public class UrlInfo {
+public class UrlEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String time;
+    private Long id;
+    private String time;
     @Column(length = 4096)
-    String input;
+    private String input;
 
 
-    public UrlInfo() {
+    public UrlEntity() {
     }
-    public UrlInfo(String input, String time) {
+    public UrlEntity(String input, String time) {
         this.input = input;
         this.time = time;
     }

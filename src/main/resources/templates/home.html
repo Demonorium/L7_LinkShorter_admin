@@ -7,24 +7,40 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 
+    <script type="text/javascript">
+        function myFunction() {
+            if (document.selection) {
+                let range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById("result"));
+                range.select().createTextRange();
+                document.execCommand("copy");
+            } else if (window.getSelection) {
+                let range = document.createRange();
+                range.selectNode(document.getElementById("result"));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+            }
+        }
+    </script>
     <title>Сокращатель</title>
 </head>
 <body class="back-color-main">
 <div class="align-content-center my-modal p-3 back-color-md">
-    <form action="#" th:action="@{/}" th:object="${urlContainer}" method="post">
+    <form action="#" th:action="@{/}" th:object="${urlPageView}" method="post">
         <h2 class="text-center">Сокращатель</h2>
         <p></p>
         <table>
-            <tr class="error" th:if="${urlContainer.error}">
+            <tr class="error" th:if="${urlPageView.badUrl}">
                 Неверный url
             </tr>
             <tr>
                 <td>URL:</td>
-                <td><input сlass="back-color-front col-10" type="text" th:field="${urlContainer.url}" placeholder="URL" required="required" /></td>
+                <td><input сlass="back-color-front col-10" type="text" th:field="${urlPageView.url}" placeholder="URL" required="required" /></td>
             </tr>
-            <tr th:if="urlContainer.correct">
+            <tr th:if="${urlPageView.correct}">
                 <td>Результат:</td>
-                <td><div class="back-color-front" th:text="${urlContainer.shorten}"></div></td>
+                <td><div id="result" class="back-color-front" th:text="${urlPageView.shorten}"></div></td>
+                <td><button class="btn back-color-front" onclick="myFunction()">Copy text</button></td>
             </tr>
         </table>
         <p></p>
