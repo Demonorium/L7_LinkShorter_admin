@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class MainController {
@@ -39,14 +37,13 @@ public class MainController {
                 Long id = Long.parseLong(target.substring(0, index), 16);
                 Optional<UrlInfo> info = repo.findById(id);
                 if (info.isPresent()) {
-                    if (info.get().time.equals(target.substring(index+1)));
+                    if (info.get().time.equals(target.substring(index+1)))
                         return "redirect:" + info.get().getInput();
                 }
             } catch (NumberFormatException formatException) {
             }
         }
         return "error";
-
     }
 
     @GetMapping("/error")
