@@ -1,11 +1,9 @@
 package com.demonorium;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +14,7 @@ public class UrlInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String time;
+    @Column(length = 4096)
     String input;
 
 

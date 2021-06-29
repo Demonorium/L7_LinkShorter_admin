@@ -58,7 +58,7 @@ public class MainController {
     String shorten(@ModelAttribute("urlContainer") UrlContainer urlContainer, HttpServletRequest request, Model model) {
         List<UrlInfo> info = repo.getByInput(urlContainer.url);
         if (info.isEmpty()) {
-            if (!validator.isValid(urlContainer.url)) {
+            if ((urlContainer.url.length() > 4095) || !validator.isValid(urlContainer.url)) {
                 urlContainer.setError(true);
                 urlContainer.setCorrect(false);
                 return "home";
