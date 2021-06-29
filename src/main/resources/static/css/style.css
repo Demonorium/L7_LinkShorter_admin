@@ -1,0 +1,70 @@
+.my-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1060;
+    transform: translate(-50%,-50%);
+}
+
+.back-color-main {
+    background-color: #f1f8ff!important;
+}
+.back-color-md {
+    background-color: #e6eefc!important;
+}
+.back-color-front {
+    background-color: #dde1e7!important;
+}
+.font-red {
+    color: #ff3131!important;
+}
+
+.text-center {
+    text-align: center;
+    align-content: center;
+}
+
+/*.btn-block{*/
+/*    color: dodgerblue;*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    padding-right:0;*/
+/*    padding-left:0;*/
+/*    border: 0!important;*/
+/*}*/
+/*.btn-block:hover{*/
+/*    text-decoration: none;*/
+/*    color: dodgerblue;*/
+/*}*/
+/*.p-2 {*/
+/*    padding: 1em;*/
+/*}*/
+
+.error {
+    color: #ff3131!important;
+}
+
+.text-color-ref {
+    color: #3762c4;
+}
+
+.text-color-light {
+    color: #00acac;
+}
+
+.my-modal-relative {
+    float: inside;
+
+}
+hr {
+    border-color:#00acac;
+    color:#00acac;
+    background-color: #00acac;
+}
+.border {
+    border: 1px solid #b7ffff !important;
+}
+
+.mark-block {
+    height: 3.0rem;
+}

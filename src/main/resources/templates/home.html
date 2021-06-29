@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+    <title>Сокращатель</title>
+</head>
+<body class="back-color-main">
+<div class="align-content-center my-modal p-3 back-color-md">
+    <form action="#" th:action="@{/}" th:object="${urlContainer}" method="post">
+        <h2 class="text-center">Сокращатель</h2>
+        <p></p>
+        <table>
+            <tr class="error" th:if="${urlContainer.error}">
+                Неверный url
+            </tr>
+            <tr>
+                <td>URL:</td>
+                <td><input сlass="back-color-front col-10" type="text" th:field="${urlContainer.url}" placeholder="URL" required="required" /></td>
+            </tr>
+            <tr th:if="urlContainer.correct">
+                <td>Результат:</td>
+                <td><div class="back-color-front" th:text="${urlContainer.shorten}"></div></td>
+            </tr>
+        </table>
+        <p></p>
+        <p class="text-center">
+            <input class = "btn back-color-front" type="submit" value="Сократить!"/>
+        </p>
+    </form>
+</div>
+</body>
+</html>
