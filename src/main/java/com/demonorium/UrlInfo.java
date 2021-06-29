@@ -15,14 +15,15 @@ public class UrlInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String shorten;
+    String time;
     String input;
 
 
     public UrlInfo() {
     }
-    public UrlInfo(String input) {
+    public UrlInfo(String input, String time) {
         this.input = input;
+        this.time = time;
     }
     public Long getId() {
         return id;
@@ -40,11 +41,11 @@ public class UrlInfo {
         this.id = id;
     }
 
-    public String getShorten() {
-        return shorten;
+    public String getTime() {
+        return time;
     }
 
-    public void setShorten(String shorten) {
-        this.shorten = shorten;
+    public void setTime(String time) {
+        this.time = time;
     }
 }

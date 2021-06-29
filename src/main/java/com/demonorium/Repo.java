@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface Repo extends CrudRepository<UrlInfo, Long> {
     List<UrlInfo> getByInput(String input);
-    List<UrlInfo> getByShorten(String shorten);
 }
