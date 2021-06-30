@@ -24,6 +24,10 @@
     align-content: center;
 }
 
+.text-right {
+    text-align: right!important;
+}
+
 /*.btn-block{*/
 /*    color: dodgerblue;*/
 /*    display: block;*/

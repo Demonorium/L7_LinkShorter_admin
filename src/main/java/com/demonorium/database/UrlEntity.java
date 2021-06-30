@@ -1,6 +1,8 @@
 package com.demonorium.database;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class UrlEntity {
@@ -40,5 +42,10 @@ public class UrlEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MM dd - HH:mm:ss");
+    public String getTimeFormat() {
+        return simpleDateFormat.format(new Date(Long.parseLong(time, 16)));
     }
 }

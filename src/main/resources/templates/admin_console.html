@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-responsive.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" th:href="@{/js/bootstrap.js}">
+    </script>
+    <title>Список ссылок</title>
+</head>
+<body class="back-color-main">
+<div class="container">
+
+    <div class ="back-color-md row-fluid">
+        <div class = "col-10 d-inline-block">
+            <h2>Список ссылок</h2>
+        </div>
+        <div class = "col-1 d-inline-block text-right">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" class="btn btn-danger text-right" th:href="@{/logout}" value="Выйти"/>
+            </form>
+        </div>
+    </div>
+    <p></p>
+    <div class="row-fluid">
+        <div class="col-2 d-inline-block text-center" style="vertical-align: top">
+            <a th:href="@{/}" class = "btn btn-large btn-block back-color-front">К добавлению</a>
+        </div>
+        <div class="col-9 back-color-md d-inline-block text-right">
+            <table class = "table table-bordered table-hover">
+                <tr>
+                    <td>ID</td>
+                    <td>Метка времени</td>
+                    <td>Полная ссылка</td>
+                    <td></td>
+                </tr>
+
+                <tr class = "book" th:each="ref: ${refs}">
+                    <td th:text="${ref.id}"></td>
+                    <td th:text="${ref.getTimeFormat()}"></td>
+                    <td th:text="${ref.input}"></td>
+                    <td class="text-center">
+                        <a class="btn btn-danger text-center" style="border: 0" th:href="'admin/remove/' + ${ref.id}">
+                            <i class="icon-trash icon-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

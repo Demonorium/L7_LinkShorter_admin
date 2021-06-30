@@ -32,6 +32,21 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/admin")
+    String admin(Model model) {
+        model.addAttribute("refs", urlRepository.findAll());
+        return "admin_console";
+    }
+
+    @GetMapping("/admin/remove/{id}")
+    String adminRemove(@PathVariable Long id, Model model) {
+        if (id == null)
+            return "redirect:/admin";
+
+        urlRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
     @GetMapping("/shr/{target}")
     String mainScreen(@PathVariable String target, Model model) {
         int index = target.indexOf('_');
